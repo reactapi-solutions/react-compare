@@ -116,6 +116,8 @@ function equal(a, b) {
     return true;
   }
 
+
+  // NaN verify
   return a !== a && b !== b;
 }
 // end fast-deep-equal
