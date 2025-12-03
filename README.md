@@ -7,6 +7,11 @@
 [![npm version][npm_img]][npm_site]
 [![Maintenance Status][maintenance_img]](#maintenance-status)
 
+
+<img width="1024" height="1536" alt="BF354B3A-BCB7-4A1D-AFC3-1E729DCB462C" src="https://github.com/user-attachments/assets/05a9afef-71c1-4671-a316-8f7166767b96" />
+
+
+
 The fastest deep equal comparison for React. Very quick general-purpose deep
 comparison, too. Great for `React.memo` and `shouldComponentUpdate`.
 
