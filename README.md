@@ -150,6 +150,9 @@ Please see our [contributions guide](./CONTRIBUTING.md).
 
 ## Maintenance Status
 
+<img width="1024" height="1536" alt="DE658EA8-1BB7-45CE-BAA5-2F53176BCFCB" src="https://github.com/user-attachments/assets/99e0a0c6-bc06-4546-93bf-5c55e73289f6" />
+
+
 **Active:** Formidable is actively working on this project, and we expect to continue for work for the foreseeable future. Bug reports, feature requests and pull requests are welcome.
 
 [actions_img]: https://github.com/FormidableLabs/react-fast-compare/actions/workflows/ci.yml/badge.svg
