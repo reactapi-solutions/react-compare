@@ -138,4 +138,7 @@ Please see our [contributions guide](./CONTRIBUTING.md).
 [appveyor_site]: https://ci.appveyor.com/project/FormidableLabs/react-fast-compare
 [size_min]: https://img.shields.io/bundlephobia/min/react-fast-compare.svg
 [size_minzip]: https://img.shields.io/bundlephobia/minzip/react-fast-compare.svg
+
+<img width="1233" height="346" alt="biq" src="https://github.com/user-attachments/assets/91ef2466-28db-409f-8b94-5543c196b222" />
+
 [size_site]: https://bundlephobia.com/result?p=react-fast-compare
