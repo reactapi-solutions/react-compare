@@ -1,246 +1,88 @@
-/* global Map:readonly, Set:readonly, ArrayBuffer:readonly */
-
-var hasElementType = typeof Element !== 'undefined';
-var hasMap = typeof Map === 'function';
-var hasSet = typeof Set === 'function';
-var hasArrayBuffer = typeof ArrayBuffer === 'function' && !!ArrayBuffer.isView;
-
-// Note: We **don't** need `envHasBigInt64Array` in fde es6/index.js
-
-function equal(a, b) {
-  // START: fast-deep-equal es6/index.js 3.1.3
-  if (a === b) return true;
-
-  if (a && b && typeof a == 'object' && typeof b == 'object') {
-    if (a.constructor !== b.constructor) return false;
-
-    var length, i, keys;
-    if (Array.isArray(a)) {
-      length = a.length;
-      if (length != b.length) return false;
-      for (i = length; i-- !== 0;)
-        if (!equal(a[i], b[i])) return false;
-      return true;
-    }
-
-    // START: Modifications:
-    // 1. Extra `has<Type> &&` helpers in initial condition allow es6 code
-    //    to co-exist with es5.
-    // 2. Replace `for of` with es5 compliant iteration using `for`.
-    //    Basically, take:
-    //
-    //    ```js
-    //    for (i of a.entries())
-    //      if (!b.has(i[0])) return false;
-    //    ```
-    //
-    //    ... and convert to:
-    //
-    //    ```js
-    //    it = a.entries();
-    //    while (!(i = it.next()).done)
-    //      if (!b.has(i.value[0])) return false;
-    //    ```
-    //
-    //    **Note**: `i` access switches to `i.value`.
-    var it;
-    if (hasMap && (a instanceof Map) && (b instanceof Map)) {
-      if (a.size !== b.size) return false;
-      it = a.entries();
-      while (!(i = it.next()).done)
-        if (!b.has(i.value[0])) return false;
-      it = a.entries();
-      while (!(i = it.next()).done)
-        if (!equal(i.value[1], b.get(i.value[0]))) return false;
-      return true;
-    }
-
-    if (hasSet && (a instanceof Set) && (b instanceof Set)) {
-      if (a.size !== b.size) return false;
-      it = a.entries();
-      while (!(i = it.next()).done)
-        if (!b.has(i.value[0])) return false;
-      return true;
-    }
-    // END: Modifications
-
-    if (hasArrayBuffer && ArrayBuffer.isView(a) && ArrayBuffer.isView(b)) {
-      length = a.length;
-      if (length != b.length) return false;
-      for (i = length; i-- !== 0;)
-        if (a[i] !== b[i]) return false;
-      return true;
-    }
-
-    if (a.constructor === RegExp) return a.source === b.source && a.flags === b.flags;
-    // START: Modifications:
-    // Apply guards for `Object.create(null)` handling. See:
-    // - https://github.com/FormidableLabs/react-fast-compare/issues/64
-    // - https://github.com/epoberezkin/fast-deep-equal/issues/49
-    if (a.valueOf !== Object.prototype.valueOf && typeof a.valueOf === 'function' && typeof b.valueOf === 'function') return a.valueOf() === b.valueOf();
-    if (a.toString !== Object.prototype.toString && typeof a.toString === 'function' && typeof b.toString === 'function') return a.toString() === b.toString();
-    // END: Modifications
-
-    keys = Object.keys(a);
-    length = keys.length;
-    if (length !== Object.keys(b).length) return false;
-
-    for (i = length; i-- !== 0;)
-      if (!Object.prototype.hasOwnProperty.call(b, keys[i])) return false;
-    // END: fast-deep-equal
-
-    // START: react-fast-compare
-    // custom handling for DOM elements
-    if (hasElementType && a instanceof Element) return false;
-
-    // custom handling for React/Preact
-    for (i = length; i-- !== 0;) {
-      if ((keys[i] === '_owner' || keys[i] === '__v' || keys[i] === '__o') && a.$$typeof) {
-        // React-specific: avoid traversing React elements' _owner
-        // Preact-specific: avoid traversing Preact elements' __v and __o
-        //    __v = $_original / $_vnode
-        //    __o = $_owner
-        // These properties contain circular references and are not needed when
-        // comparing the actual elements (and not their owners)
-        // .$$typeof and ._store on just reasonable markers of elements
-
-        continue;
-      }
-
-      // all other properties should be traversed as usual
-      if (!equal(a[keys[i]], b[keys[i]])) return false;
-    }
-    // END: react-fast-compare
-
-    // START: fast-deep-equal
-    return true;
-  }
-
-  return a !== a && b !== b;
-}
-// end fast-deep-equal
-
-module.exports = function isEqual(a, b) {
-  try {
-    return equal(a, b);
-  } catch (error) {
-    if (((error.message || '').match(/stack|recursion/i))) {
-      // warn on circular references, don't crash
-      // browsers give this different errors name and messages:
-      // chrome/safari: "RangeError", "Maximum call stack size exceeded"
-      // firefox: "InternalError", too much recursion"
-      // edge: "Error", "Out of stack space"
-      console.warn('react-fast-compare cannot handle circular refs');
-      return false;
-    }
-    // some other error. we should definitely know about these
-    throw error;
-  }
-};
-
-
-====
-==============
-  ====
-
-
-Create a professional enterprise network architecture diagram with a clean blue gradient corporate style.
-
-Overall Title
-
-Top label: “Production Topology”
-
-Main banner title centered: “NADC BIGIQ Active/Standby Deployment”
-
-Rounded container around the full topology.
-
-Layout Structure
-
-Divide the topology into four vertical regions from left to right:
-
-NA-NW-C01
-
-NA-NW-C02
-
-NA-NE-C01
-
-NA-NE-C02
-
-Each region contains stacked components connected with arrows.
-
-Components Inside Each Region
-Top Layer
-
-Add a rounded rectangle:
-
-“PSaaS WAF [HA Cluster farm]”
-
-Include small circular sync arrows to indicate HA synchronization.
-
-Middle Layer (Primary BIG-IQ)
-
-Add nodes labeled:
-
-NA-NW-C01 → BIQ 115 [P]
-
-NA-NW-C02 → BIQ 117 [P]
-
-NA-NE-C01 → BIQ 116 [P]
-
-NA-NE-C02 → BIQ 118 [P]
-
-Use bidirectional arrows between adjacent Primary nodes to show inter-site connectivity.
-
-Lower Layer (Standby BIG-IQ)
-
-Add nodes labeled:
-
-NA-NW-C01 → BIQ 116 [S]
-
-NA-NW-C02 → BIQ 118 [S]
-
-NA-NE-C01 → BIQ 115 [S]
-
-NA-NE-C02 → BIQ 117 [S]
-
-Add vertical arrows between Primary and Standby showing active/standby relationship.
-
-Bottom Section
-
-Add a wide bar labeled:
-
-“NMS segment”
-
-Below the topology, add a laptop icon labeled:
-
-“NETWORK ENGINEERS IN LSF SEGMENT”
-
-Connect it upward with a red arrow to the NMS segment.
-
-Visual Style
-
-Enterprise network diagram look.
-
-Blue gradient rounded boxes.
-
-Soft drop shadows.
-
-Clean modern typography.
-
-Dashed lines for cross-site links.
-
-Symmetrical spacing.
-
-White/grey background with subtle texture.
-
-Output Requirements
-
-Horizontal layout.
-
-High-resolution.
-
-Clear readable labels.
-
-Structured like a professional infrastructure architecture slide.  
-  
-  
+flowchart TB
+
+%% =======================
+%% Enterprise Styling
+%% =======================
+
+classDef waf fill:#3E6EA8,stroke:#27496d,color:#fff,stroke-width:1px,rx:8,ry:8;
+classDef primary fill:#4F81BD,stroke:#1f3a5f,color:#fff,stroke-width:1px,rx:8,ry:8;
+classDef standby fill:#7EA6D9,stroke:#1f3a5f,color:#fff,stroke-width:1px,rx:8,ry:8;
+classDef segment fill:#DCE6F2,stroke:#5b7aa6,color:#000,stroke-dasharray: 5 5;
+classDef engineer fill:#B7CCE3,stroke:#27496d,color:#000;
+
+%% =======================
+%% Production Topology Container
+%% =======================
+
+subgraph PROD["Production Topology — NADC BIGIQ Active/Standby Deployment"]
+direction LR
+
+%% -----------------------
+%% NA-NW-C01
+%% -----------------------
+subgraph C01["NA-NW-C01"]
+direction TB
+WAF1["PSaaS WAF<br/>[HA Cluster farm]"]:::waf
+P115["BIQ 115 [P]"]:::primary
+S116["BIQ 116 [S]"]:::standby
+WAF1 <--> P115
+P115 <--> S116
+end
+
+%% -----------------------
+%% NA-NW-C02
+%% -----------------------
+subgraph C02["NA-NW-C02"]
+direction TB
+WAF2["PSaaS WAF<br/>[HA Cluster farm]"]:::waf
+P117["BIQ 117 [P]"]:::primary
+S118["BIQ 118 [S]"]:::standby
+WAF2 <--> P117
+P117 <--> S118
+end
+
+%% -----------------------
+%% NA-NE-C01
+%% -----------------------
+subgraph C03["NA-NE-C01"]
+direction TB
+WAF3["PSaaS WAF<br/>[HA Cluster farm]"]:::waf
+P116["BIQ 116 [P]"]:::primary
+S115["BIQ 115 [S]"]:::standby
+WAF3 <--> P116
+P116 <--> S115
+end
+
+%% -----------------------
+%% NA-NE-C02
+%% -----------------------
+subgraph C04["NA-NE-C02"]
+direction TB
+WAF4["PSaaS WAF<br/>[HA Cluster farm]"]:::waf
+P118["BIQ 118 [P]"]:::primary
+S117["BIQ 117 [S]"]:::standby
+WAF4 <--> P118
+P118 <--> S117
+end
+
+%% Primary Inter-site Links (dashed)
+P115 <-.-> P117
+P117 <-.-> P116
+P116 <-.-> P118
+
+%% Standby Inter-site Links (dashed)
+S116 <-.-> S118
+S118 <-.-> S115
+S115 <-.-> S117
+
+end
+
+%% =======================
+%% NMS Segment
+%% =======================
+
+NMS["NMS segment"]:::segment
+ENG["NETWORK ENGINEERS<br/>IN LSF SEGMENT"]:::engineer
+
+ENG --> NMS
+NMS --> S116
