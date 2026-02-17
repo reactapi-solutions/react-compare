@@ -137,3 +137,110 @@ module.exports = function isEqual(a, b) {
     throw error;
   }
 };
+
+
+====
+==============
+  ====
+
+
+Create a professional enterprise network architecture diagram with a clean blue gradient corporate style.
+
+Overall Title
+
+Top label: “Production Topology”
+
+Main banner title centered: “NADC BIGIQ Active/Standby Deployment”
+
+Rounded container around the full topology.
+
+Layout Structure
+
+Divide the topology into four vertical regions from left to right:
+
+NA-NW-C01
+
+NA-NW-C02
+
+NA-NE-C01
+
+NA-NE-C02
+
+Each region contains stacked components connected with arrows.
+
+Components Inside Each Region
+Top Layer
+
+Add a rounded rectangle:
+
+“PSaaS WAF [HA Cluster farm]”
+
+Include small circular sync arrows to indicate HA synchronization.
+
+Middle Layer (Primary BIG-IQ)
+
+Add nodes labeled:
+
+NA-NW-C01 → BIQ 115 [P]
+
+NA-NW-C02 → BIQ 117 [P]
+
+NA-NE-C01 → BIQ 116 [P]
+
+NA-NE-C02 → BIQ 118 [P]
+
+Use bidirectional arrows between adjacent Primary nodes to show inter-site connectivity.
+
+Lower Layer (Standby BIG-IQ)
+
+Add nodes labeled:
+
+NA-NW-C01 → BIQ 116 [S]
+
+NA-NW-C02 → BIQ 118 [S]
+
+NA-NE-C01 → BIQ 115 [S]
+
+NA-NE-C02 → BIQ 117 [S]
+
+Add vertical arrows between Primary and Standby showing active/standby relationship.
+
+Bottom Section
+
+Add a wide bar labeled:
+
+“NMS segment”
+
+Below the topology, add a laptop icon labeled:
+
+“NETWORK ENGINEERS IN LSF SEGMENT”
+
+Connect it upward with a red arrow to the NMS segment.
+
+Visual Style
+
+Enterprise network diagram look.
+
+Blue gradient rounded boxes.
+
+Soft drop shadows.
+
+Clean modern typography.
+
+Dashed lines for cross-site links.
+
+Symmetrical spacing.
+
+White/grey background with subtle texture.
+
+Output Requirements
+
+Horizontal layout.
+
+High-resolution.
+
+Clear readable labels.
+
+Structured like a professional infrastructure architecture slide.  
+  
+  
