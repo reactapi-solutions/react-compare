@@ -151,16 +151,3 @@ Please see our [contributions guide](./CONTRIBUTING.md).
 [size_site]: https://bundlephobia.com/result?p=react-fast-compare
 [downloads_img]: https://img.shields.io/npm/dt/react-fast-compare.svg
 [maintenance-image]: https://img.shields.io/badge/maintenance-active-green.svg
-
-<img width="1536" height="1024" alt="110" src="https://github.com/user-attachments/assets/67750e1d-28a1-4110-ae1b-4b9af3105b50" />
-
-
-
-===
-
-
-<img width="1536" height="1024" alt="9F" src="https://github.com/user-attachments/assets/fea47dfd-2ca1-4768-95e7-5869f5d00589" />
-
-
-
-
