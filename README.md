@@ -149,7 +149,7 @@ Please see our [contributions guide](./CONTRIBUTING.md).
 
 ====
 
-```mermaid
+#```mermaid
 flowchart TB
 
 %% =========================
