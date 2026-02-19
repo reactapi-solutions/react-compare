@@ -138,4 +138,104 @@ Please see our [contributions guide](./CONTRIBUTING.md).
 [appveyor_site]: https://ci.appveyor.com/project/FormidableLabs/react-fast-compare
 [size_min]: https://img.shields.io/bundlephobia/min/react-fast-compare.svg
 [size_minzip]: https://img.shields.io/bundlephobia/minzip/react-fast-compare.svg
+
+===
+
+<img width="1024" height="1024" alt="topolo" src="https://github.com/user-attachments/assets/72c6ce73-a683-45c1-886f-3ccc815a1925" />
+
+
+===
 [size_site]: https://bundlephobia.com/result?p=react-fast-compare
+
+====
+
+```mermaid
+flowchart TB
+
+%% =========================
+%% HEADER
+%% =========================
+A["Production Topology"]
+B["NADC BIGIQ Active/Standby Deployment"]
+
+A --> B
+
+%% =========================
+%% REGIONAL BLOCKS
+%% =========================
+
+subgraph NA-NW-C01
+direction TB
+WAF1["PSaas WAF<br/>[HA Cluster farm]"]
+P115["BIQ115[P]"]
+S116["BIQ116[S]"]
+
+WAF1 -.-> P115
+P115 -.-> WAF1
+WAF1 -.-> S116
+S116 -.-> WAF1
+end
+
+subgraph NA-NW-C02
+direction TB
+WAF2["PSaas WAF<br/>[HA Cluster farm]"]
+P117["BIQ117[P]"]
+S118["BIQ118[S]"]
+
+WAF2 -.-> P117
+P117 -.-> WAF2
+WAF2 -.-> S118
+S118 -.-> WAF2
+end
+
+subgraph NA-NE-C01
+direction TB
+WAF3["PSaas WAF<br/>[HA Cluster farm]"]
+P116["BIQ116[P]"]
+S115["BIQ115[S]"]
+
+WAF3 -.-> P116
+P116 -.-> WAF3
+WAF3 -.-> S115
+S115 -.-> WAF3
+end
+
+subgraph NA-NE-C02
+direction TB
+WAF4["PSaas WAF<br/>[HA Cluster farm]"]
+P118["BIQ118[P]"]
+S117["BIQ117[S]"]
+
+WAF4 -.-> P118
+P118 -.-> WAF4
+WAF4 -.-> S117
+S117 -.-> WAF4
+end
+
+%% =========================
+%% CROSS REGION DOTTED LINKS
+%% =========================
+
+P115 -.-> P117
+P117 -.-> P116
+P116 -.-> P118
+
+S116 -.-> S118
+S118 -.-> S115
+S115 -.-> S117
+
+%% =========================
+%% NMS SEGMENT + ENGINEER
+%% =========================
+
+NMS["NMS segment"]
+
+ENG["NETWORK ENGINEERS IN LSF SEGMENT"]
+
+ENG --> NMS
+
+NA-NW-C01 --- NMS
+NA-NW-C02 --- NMS
+NA-NE-C01 --- NMS
+NA-NE-C02 --- NMS
+
