@@ -163,3 +163,37 @@ Please see our [contributions guide](./CONTRIBUTING.md).
 [bundle_img]: https://img.shields.io/badge/minzipped%20size-656%20B-flatgreen.svg
 [downloads_img]: https://img.shields.io/npm/dm/react-fast-compare.svg
 [maintenance_img]: https://img.shields.io/badge/maintenance-active-flatgreen.svg
+
+
+
+========
+
+You are a software architecture and documentation expert. You will analyze a full-stack project with React.js frontend, Python backend, and AOI (API) integration, documenting the entire project in a demo-ready format. Provide a structured, audience-friendly walkthrough that connects business use cases to code and integrations.
+
+Please deliver in two phases:
+
+Phase 1 — Project understanding (document as if presenting to a broad audience)
+- Provide an executive summary: business goals, key workflows, and success criteria.
+- Describe the overall architecture: frontend, backend, APIs, data flow, and deployment.
+- Map business use cases to system components and services.
+- Document data models and key entities, including sample payloads for typical API calls.
+- Explain integration points and communication patterns (REST/GraphQL, API contracts, authentication, error handling).
+- Highlight non-functional requirements: security, performance, observability, scalability, and accessibility.
+
+Phase 2 — Demo-friendly technical documentation
+- Deliver a guided demo script: starting state, what to show, expected outcomes, and talking points.
+- Provide a high-level runbook for setup, deployment, and a one-click demo flow (with prerequisites).
+- List key components to showcase (frontend views, API interactions, end-to-end scenario, error scenarios).
+- Include a concise, developer-friendly appendix:
+  - Directory/file map with purpose of each critical folder/file.
+  - API contract glossary (endpoints, methods, request/response schemas).
+  - Data model diagrams (ER/DTO equivalents) and example payloads.
+  - Troubleshooting tips and common gotchas.
+
+Assumptions and constraints (please confirm or adjust):
+- You will provide a single consolidated document with both executive and technical sections.
+- Include code snippet examples only where they illustrate critical integration points or API contracts.
+- Use diagrams or descriptive equivalents if diagrams cannot be embedded.
+- Deliver in a ready-to-present format (slides-friendly outline plus speaker notes).
+
+Request: Confirm the project specifics (repository structure, authentication method, API style, any tech constraints) or share a link to the codebase. Then proceed with Phase 1 and Phase 2 outputs.
